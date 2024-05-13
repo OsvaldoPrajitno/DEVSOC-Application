@@ -1,40 +1,64 @@
 let sprite, floor, sisyphus;
-let flat;
+let slope1, slope2;
 let canvas;
 let bar = 0;
-let threshold;
 
 function preload() {
+	const startPosY = windowHeight * 0.7;
+	const startPosX = windowWidth / 2;
 
-	sprite = new Sprite(windowWidth/2, 390);
+	sprite = new Sprite(startPosX + 49, startPosY);
 	sprite.img = '/assets/Boulder.png'
 	sprite.d = 98;
-	sprite.bounciness = 0.2
-	sprite.rotationDrag = 2;
+	sprite.bounciness = 0.2;
+	sprite.rotationDrag = 1;
+	sprite.mass = 4;
 	sprite.debug = false;
 
 	//ani = loadAni('/Sisyphus.png', {frameSize: [32, 32], frame: 8});
 
-	sisyphus = new Sprite(100, windowHeight-230, 64, 64, 'd');
+	sisyphus = new Sprite(startPosX-25, startPosY + 3, 64, 64, 'd');
 	
 	sisyphus.spriteSheet = '/assets/SisyphusNew.png'
-	sisyphus.anis.frameDelay = 20;
+	sisyphus.anis.frameDelay = 4;
 	sisyphus.friction = 0.5;
-	sisyphus.debug = true;
+	sisyphus.debug = false;
 	
 	sisyphus.addAnis({
 		walk: {row: 0, frames: 8},
 	})
 
-	floor = new Sprite([[0, windowHeight-120], [150, windowHeight-120], [1200, -40]]);
+	floor = new Sprite(windowWidth/2, windowHeight*0.85, windowWidth*0.3, windowHeight * 0.3);
 	floor.collider = 'static';
+	floor.color = 'black';
+	floor.debug = true;
+	
+	slope1 = new Sprite(floor.x + (floor.w * 2.4) - (windowHeight *0.1), 
+	(floor.y) + (floor.h * 0.38) + (windowHeight *0.005), windowWidth, windowHeight, 's');
+	if (windowWidth < 700) slope1.w = 700;
+	if (windowWidth > 4000) slope1.w = 4000;
+	slope1.color = 'black';
+	slope1.rotation = 60;
+	slope1.debug = true;
 
-	flat = new Sprite(camera.x - 32, sisyphus.y - 32, 10, 10, 'kinematic');
+	slope2 = new Sprite(floor.x - (floor.w * 1.11), 
+	floor.y, (windowHeight * 0.2), (windowWidth * 0.45), 's');
+	if (windowWidth < 700) slope2.w = 700;
+	if (windowHeight > 2500) {
+		slope2.w = 2500;
+		slope2.h = 2500;
+	}
+	slope2.color = 'black';
+	slope2.rotation = 60;
+	slope2.debug = true;
+
 }
 
 function setup() {
 	canvas = new Canvas(windowWidth, windowHeight);
 	world.gravity.y = 10;
+
+	console.log(windowWidth, windowHeight)
 }
 
 function draw() {
@@ -42,7 +66,7 @@ function draw() {
 	text((windowHeight- 153 - round(sisyphus.y)), 50, 50);
 
 	while (bar > -0.01) {
-		bar -= 0.001
+		bar -= 0.0001
 	}
 
 
@@ -62,20 +86,18 @@ function draw() {
 		sisyphus.friction = 0.5;
 		sisyphus.bearing = -10;
 		sisyphus.vel.y = 0.3;
-		sisyphus.applyForce(1000);
+		sisyphus.applyForce(500);
 	}
 
-	if (kb.presses('a')) {
-		sisyphus.vel.x = 0;
-		sisyphus.vel.y = 0;
-		bar--;
+	if (round(sisyphus.x) <= round(sisyphus.previousPosition.x)) {
+		sisyphus.ani.stop();
+	} else {
+		sisyphus.ani.play();
 	}
 
-	camera.x = sisyphus.x;
-	camera.y = sisyphus.y;
+	//camera.x = sisyphus.x;
+	//camera.y = sisyphus.y - 100;
 
-	flat.height = bar;
-	flat.x = camera.x - 120;
-	flat.y = camera.y - 80;
+	
 
 }
