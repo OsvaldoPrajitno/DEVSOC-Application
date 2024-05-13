@@ -4,7 +4,7 @@ let canvas;
 let bar = 0;
 
 function preload() {
-	const startPosY = windowHeight * 0.7;
+	const startPosY = windowHeight * 0.64;
 	const startPosX = windowWidth / 2;
 
 	sprite = new Sprite(startPosX + 49, startPosY);
@@ -17,7 +17,7 @@ function preload() {
 
 	//ani = loadAni('/Sisyphus.png', {frameSize: [32, 32], frame: 8});
 
-	sisyphus = new Sprite(startPosX-25, startPosY + 3, 64, 64, 'd');
+	sisyphus = new Sprite(startPosX-35, startPosY + 25, 64, 64, 'd');
 	
 	sisyphus.spriteSheet = '/assets/SisyphusNew.png'
 	sisyphus.anis.frameDelay = 4;
@@ -28,30 +28,27 @@ function preload() {
 		walk: {row: 0, frames: 8},
 	})
 
-	floor = new Sprite(windowWidth/2, windowHeight*0.85, windowWidth*0.3, windowHeight * 0.3);
+	floor = new Sprite(windowWidth/2, windowHeight*0.85, windowWidth/3, windowHeight/3);
 	floor.collider = 'static';
 	floor.color = 'black';
-	floor.debug = true;
+	floor.debug = false;
 	
-	slope1 = new Sprite(floor.x + (floor.w * 2.4) - (windowHeight *0.1), 
-	(floor.y) + (floor.h * 0.38) + (windowHeight *0.005), windowWidth, windowHeight, 's');
-	if (windowWidth < 700) slope1.w = 700;
-	if (windowWidth > 4000) slope1.w = 4000;
-	slope1.color = 'black';
-	slope1.rotation = 60;
-	slope1.debug = true;
+	//floor.addCollider(-floor.width * 1.628, floor.height * 0.812, [2000, -30],);
+	floor.addCollider(-10 -floor.w/2, 0, [[0, floor.h/2], [-floor.w/2 - (windowWidth * 0.5), 0], 
+	[windowWidth* 0.5, -floor.h], [floor.w/2, 0], [0, floor.h/2]]);
 
-	slope2 = new Sprite(floor.x - (floor.w * 1.11), 
-	floor.y, (windowHeight * 0.2), (windowWidth * 0.45), 's');
-	if (windowWidth < 700) slope2.w = 700;
-	if (windowHeight > 2500) {
-		slope2.w = 2500;
-		slope2.h = 2500;
-	}
-	slope2.color = 'black';
-	slope2.rotation = 60;
-	slope2.debug = true;
+	floor.addCollider(floor.w, floor.h/4, [[0, -floor.h/2], [windowWidth/2, -floor.h], 
+	[0, floor.h*3], [-windowWidth/2, 0], [0, -floor.h*1.5]])
 
+	/*
+	floor.addCollider(350, -71, [[0, -floor.h/2], [floor.w/2, 0], [windowWidth*0.5, -floor.h/2], 
+	[0, floor.h * 3/2], [-windowWidth*0.5 - floor.w/2, 0], [0, -floor.h/2]])
+	/*
+	slope1 = new Sprite(floor.x - (floor.w/2), floor.y - (floor.h/2), 
+	[[-50, 40], [50, 0], [0, 40]]
+	)
+	slope1.collider = 's';
+	*/
 }
 
 function setup() {
@@ -98,6 +95,6 @@ function draw() {
 	//camera.x = sisyphus.x;
 	//camera.y = sisyphus.y - 100;
 
-	
+	floor.debug = mouse.pressing();
 
 }
