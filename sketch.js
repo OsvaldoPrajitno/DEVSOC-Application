@@ -2,7 +2,6 @@ let sprite, floor, sisyphus;
 let slope1, slope2;
 let canvas;
 let bar = 0;
-let initHeight;
 
 function preload() {
 	const startPosY = windowHeight * 0.64;
@@ -33,21 +32,25 @@ function preload() {
 	floor.collider = 'static';
 	floor.color = 'black';
 	floor.debug = false;
+
+	const wid = round(floor.h * Math.sqrt(3));
+	const offset = round(floor.w/2);
 	
-	//floor.addCollider(-floor.width * 1.628, floor.height * 0.812, [2000, -30],);
-	floor.addCollider(-floor.w*1.02, floor.h*0.17, [[0, floor.h], [-800, 0], 
-	[800, -floor.h]]);
+	floor.addCollider(-floor.w*0.8, 0, [[0, floor.h/2], [-offset - wid, 0], 
+	[wid, -floor.h], [offset, 0], [0, floor.h/2]]);
 
-	floor.addCollider(floor.w, floor.h/4, [[0, -floor.h/2], [windowWidth/2, -floor.h], 
-	[0, floor.h*3], [-windowWidth/2, 0], [0, -floor.h*1.5]])
+	floor.addCollider(600, floor.h*0.9, [[0, -floor.h], [wid*2, -floor.h*2], 
+	[0, floor.h*6], [-wid*2, 0], [0, -floor.h*3]])
 
+	///////////////////////////////
+	///  TODO: WRAP AROUND  ///////
+	///////////////////////////////
 	
 }
 
 function setup() {
 	canvas = new Canvas(windowWidth, windowHeight);
 	world.gravity.y = 15;
-	initHeight = round(sisyphus.y)
 
 	console.log(windowWidth, windowHeight)
 }
@@ -55,8 +58,6 @@ function setup() {
 function draw() {
 	background('#b66d27');
 	
-	text(initHeight - round(sisyphus.y), 50, 50);
-
 	while (bar > -0.01) {
 		bar -= 0.0001
 	}
