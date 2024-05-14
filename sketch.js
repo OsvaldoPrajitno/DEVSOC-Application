@@ -36,10 +36,10 @@ function preload() {
 	const wid = round(floor.h * Math.sqrt(3));
 	const offset = round(floor.w/2);
 	
-	floor.addCollider(-floor.w*0.8, 0, [[0, floor.h/2], [-offset - wid, 0], 
+	floor.addCollider(-floor.w*0.5, 0, [[0, floor.h/2], [-offset - wid, 0], 
 	[wid, -floor.h], [offset, 0], [0, floor.h/2]]);
 
-	floor.addCollider(600, floor.h*0.9, [[0, -floor.h], [wid*2, -floor.h*2], 
+	floor.addCollider(floor.w, floor.h*0.9, [[0, -floor.h], [wid*2, -floor.h*2], 
 	[0, floor.h*6], [-wid*2, 0], [0, -floor.h*3]])
 
 	///////////////////////////////
