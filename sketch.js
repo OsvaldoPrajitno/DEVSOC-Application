@@ -1,6 +1,7 @@
 let boulder, floor, sisyphus;
 let slope1, slope2;
-let canvas;
+let canvas, audio;
+let mute = false;
 let bar = 0;
 
 function preload() {
@@ -42,6 +43,7 @@ function preload() {
 	floor.addCollider(floor.w, floor.h * 0.3, [[0, -floor.h/2], [wid, -floor.h], 
 	[0, floor.h*3], [-wid, 0], [0, -floor.h*3/2]])
 	
+	audio = loadSound('/assets/meAndTheBirds.mp3')
 }
 
 function setup() {
@@ -77,7 +79,7 @@ function draw() {
 		if (sisyphus.rotation === 0) {
 			sisyphus.applyForce(80);
 		} else {
-			sisyphus.applyForce(1000);
+			sisyphus.applyForce(600);
 		}
 	}
 
@@ -101,6 +103,17 @@ function draw() {
 		boulder.y = sisyphus.y;
 	}
 
-	floor.debug = mouse.pressing();
 
+	if (!(audio.isPlaying()) && mute === false) {
+		audio.play();
+	}
+
+	if (kb.presses('m')) {
+		if (mute === false) {
+			mute = true;
+			audio.stop();
+		} else {
+			mute = false;
+		}
+	}
 }
