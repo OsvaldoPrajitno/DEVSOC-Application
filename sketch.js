@@ -51,18 +51,17 @@ function setup() {
 	world.gravity.y = 15;
 
 	frameRate(60);
+	audio.play();
+	outputVolume(0.3);
 }
 
 function draw() {
 	background('#b66d27');
-
-	text(sisyphus.x, 50, 50);
 	
 	while (bar > 0) {
 		bar = bar - 1;
 	}
 
-	console.log(frameCount);
 
 	if (kb.presses('space')) {
 		bar+= 100;
@@ -89,7 +88,7 @@ function draw() {
 		sisyphus.ani.play();
 	}
 
-	if (sisyphus.x > windowWidth + sisyphus.hw) {
+	if (sisyphus.x > windowWidth + 20) {
 		sisyphus.x = -32 - boulder.d;
 		sisyphus.y = windowHeight*0.75;
 		boulder. x = - boulder.r;
@@ -105,6 +104,7 @@ function draw() {
 
 
 	if (!(audio.isPlaying()) && mute === false) {
+		console.log("play");
 		audio.play();
 	}
 
