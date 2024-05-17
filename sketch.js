@@ -23,7 +23,7 @@ function preload() {
 	sisyphus.spriteSheet = '/assets/SisyphusNew.png'
 	sisyphus.anis.frameDelay = 12;
 	sisyphus.friction = 0.2;
-	sisyphus.debug = false;
+	sisyphus.debug = true;
 	
 	sisyphus.addAnis({
 		walk: {row: 0, frames: 8},
@@ -40,7 +40,7 @@ function preload() {
 	floor.addCollider(-floor.w * 0.9, 0, [[0, floor.h/2], [-offset - wid, 0], 
 	[wid, -floor.h], [offset, 0], [0, floor.h/2]]);
 
-	floor.addCollider(floor.w, floor.h * 0.3, [[0, -floor.h/2], [wid, -floor.h], 
+	floor.addCollider(floor.w*0.8, floor.h * 0.3, [[0, -floor.h/2], [wid, -floor.h], 
 	[0, floor.h*3], [-wid, 0], [0, -floor.h*3/2]])
 	
 	audio = loadSound('/assets/meAndTheBirds.mp3')
@@ -76,9 +76,9 @@ function draw() {
 	if (bar > 0) {
 		sisyphus.bearing = sisyphus.rotation;
 		if (sisyphus.rotation === 0) {
-			sisyphus.applyForce(80);
+			sisyphus.applyForce(120);
 		} else {
-			sisyphus.applyForce(600);
+			sisyphus.applyForce(650);
 		}
 	}
 
@@ -88,14 +88,14 @@ function draw() {
 		sisyphus.ani.play();
 	}
 
-	if (sisyphus.x > windowWidth + 20) {
+	if (sisyphus.x > windowWidth + 32) {
 		sisyphus.x = -32 - boulder.d;
 		sisyphus.y = windowHeight*0.75;
-		boulder. x = - boulder.r;
+		boulder. x = 10-boulder.r;
 		boulder.y = sisyphus.y;
 	}
 
-	if (boulder.x < -boulder.r) {
+	if (boulder.x < -49) {
 		sisyphus.x = windowWidth + sisyphus.hw;
 		sisyphus.y = windowHeight * 0.5;
 		boulder.x = sisyphus.x + boulder.d;
