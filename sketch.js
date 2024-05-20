@@ -47,7 +47,10 @@ function preload() {
 }
 
 function setup() {
-	canvas = new Canvas(windowWidth, windowHeight);
+	canvas = createCanvas(windowWidth, windowHeight);
+	canvas.parent("canvasParent");
+	canvas.style('display', 'block');
+
 	world.gravity.y = 15;
 
 	frameRate(60);
@@ -116,4 +119,8 @@ function draw() {
 			mute = false;
 		}
 	}
+}
+
+function windowResized() {
+	resizeCanvas(windowWidth, windowHeight);
 }
