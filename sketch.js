@@ -10,7 +10,7 @@ function preload() {
 	const startPosX = windowWidth / 2;
 
 	boulder = new Sprite(startPosX + 49, startPosY);
-	boulder.img = './public/Boulder.png'
+	boulder.img = './Boulder.png'
 	boulder.d = 98;
 	boulder.bounciness = 0.2;
 	boulder.rotationDrag = 0.5;
@@ -21,7 +21,7 @@ function preload() {
 
 	sisyphus = new Sprite(startPosX-35, startPosY, 64, 64, 'd');
 	
-	sisyphus.spriteSheet = './public/SisyphusNew.png'
+	sisyphus.spriteSheet = './SisyphusNew.png'
 	sisyphus.anis.frameDelay = 12;
 	sisyphus.friction = 0.2;
 	sisyphus.debug = true;
@@ -44,7 +44,7 @@ function preload() {
 	floor.addCollider(floor.w*0.8, floor.h * 0.3, [[0, -floor.h/2], [wid, -floor.h], 
 	[0, floor.h*3], [-wid, 0], [0, -floor.h*3/2]])
 	
-	audio = loadSound('./public/meAndTheBirds.mp3')
+	audio = loadSound('./meAndTheBirds.mp3')
 }
 
 function setup() {
@@ -58,7 +58,7 @@ function setup() {
 	audio.play();
 	outputVolume(0.3);
 
-	font = loadFont('./public/gentium-basic-cdnfonts/GenBkBasR.ttf');
+	font = loadFont('/gentium-basic-cdnfonts/GenBkBasR.ttf');
 }
 
 function draw() {
