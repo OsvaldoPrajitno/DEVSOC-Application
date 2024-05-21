@@ -24,7 +24,7 @@ function preload() {
 	sisyphus.spriteSheet = './SisyphusNew.png'
 	sisyphus.anis.frameDelay = 12;
 	sisyphus.friction = 0.2;
-	sisyphus.debug = true;
+	sisyphus.debug = false;
 	
 	sisyphus.addAnis({
 		walk: {row: 0, frames: 8},
