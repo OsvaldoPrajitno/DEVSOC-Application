@@ -3,6 +3,7 @@ let slope1, slope2;
 let canvas, audio;
 let mute = false;
 let bar = 0;
+let font;
 
 function preload() {
 	const startPosY = windowHeight * 0.64;
@@ -56,17 +57,25 @@ function setup() {
 	frameRate(60);
 	audio.play();
 	outputVolume(0.3);
+
+	font = loadFont('/assets/gentium-basic-cdnfonts/GenBkBasR.ttf');
 }
 
 function draw() {
 	background('#b66d27');
+
+	textAlign(CENTER);
+	text(`Spam 'enter' to make Sisyphus move forward`, windowWidth/2, 50);
+	text(`Press 'm' to toggle the music`, windowWidth/2, 100)
+	textSize(30);
+	textFont(font);
 	
 	while (bar > 0) {
 		bar = bar - 1;
 	}
 
 
-	if (kb.presses('space')) {
+	if (kb.presses('enter')) {
 		bar+= 100;
 	}
 	
@@ -119,8 +128,4 @@ function draw() {
 			mute = false;
 		}
 	}
-}
-
-function windowResized() {
-	resizeCanvas(windowWidth, windowHeight);
 }

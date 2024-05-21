@@ -2,6 +2,7 @@ body{
     margin: 0;
     padding: 0;
     background-color: black;
+    font-family: "Gentium Plus", "Times New Roman", sans-serif;
 }
 
 #canvasParent{
@@ -51,4 +52,8 @@ body{
     color:#b66d27;
     width: 40%;
     padding-right: 10%;
+}
+
+#computer-journey{
+    font-size: large;
 }
